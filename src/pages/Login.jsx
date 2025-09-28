@@ -1,0 +1,184 @@
+import { useState, useEffect } from 'react'
+import { useNavigate, useSearchParams } from 'react-router-dom'
+import { useAuth } from '../hooks/useAuth.js'
+
+const Login = () => {
+  const { user, loading, signInWithGitHub } = useAuth()
+  const [authLoading, setAuthLoading] = useState(false)
+  const [error, setError] = useState(null)
+  const [searchParams] = useSearchParams()
+  const navigate = useNavigate()
+
+  // Check if user was just signed out
+  const wasSignedOut = searchParams.get('signed_out') === 'true'
+
+  useEffect(() => {
+    // If user is already logged in and not just signed out, redirect to dashboard
+    if (user && !loading && !wasSignedOut) {
+      navigate('/dashboard')
+    }
+  }, [user, loading, navigate, wasSignedOut])
+
+  const handleGitHubLogin = async () => {
+    try {
+      setAuthLoading(true)
+      setError(null)
+      await signInWithGitHub()
+    } catch (err) {
+      console.error('GitHub sign in error:', err)
+      setError('Failed to sign in with GitHub. Please try again.')
+    } finally {
+      setAuthLoading(false)
+    }
+  }
+
+  // Don't show loading if user was just signed out
+  if (loading && !wasSignedOut) return (
+    <div style={{
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+      height: '100vh',
+      background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)'
+    }}>
+      <div style={{
+        width: '40px',
+        height: '40px',
+        border: '4px solid rgba(255, 255, 255, 0.3)',
+        borderTop: '4px solid white',
+        borderRadius: '50%',
+        animation: 'spin 1s linear infinite'
+      }}></div>
+      <style>{`
+        @keyframes spin {
+          0% { transform: rotate(0deg); }
+          100% { transform: rotate(360deg); }
+        }
+      `}</style>
+    </div>
+  )
+
+  return (
+    <div style={{
+      minHeight: '100vh',
+      background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      padding: '20px'
+    }}>
+      <div style={{
+        background: 'rgba(255, 255, 255, 0.95)',
+        backdropFilter: 'blur(20px)',
+        borderRadius: '20px',
+        padding: '40px',
+        boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
+        textAlign: 'center',
+        maxWidth: '400px',
+        width: '100%'
+      }}>
+        <div style={{
+          width: '80px',
+          height: '80px',
+          background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+          borderRadius: '50%',
+          margin: '0 auto 30px',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          color: 'white',
+          fontSize: '36px'
+        }}>
+          🔐
+        </div>
+
+        <h1 style={{
+          fontSize: '32px',
+          fontWeight: 'bold',
+          color: '#1F2937',
+          marginBottom: '10px'
+        }}>
+          Welcome to DevInsights
+        </h1>
+
+        <p style={{
+          color: '#6B7280',
+          marginBottom: '30px',
+          fontSize: '16px',
+          lineHeight: '1.5'
+        }}>
+          Sign in with your GitHub account to start tracking your development insights
+        </p>
+
+        {wasSignedOut && (
+          <div style={{
+            background: '#D1FAE5',
+            border: '1px solid #A7F3D0',
+            borderRadius: '8px',
+            padding: '12px',
+            color: '#065F46',
+            fontSize: '14px',
+            marginBottom: '20px'
+          }}>
+            You have been successfully signed out.
+          </div>
+        )}
+
+        {error && (
+          <div style={{
+            background: '#FEE2E2',
+            border: '1px solid #FECACA',
+            borderRadius: '8px',
+            padding: '12px',
+            color: '#DC2626',
+            fontSize: '14px',
+            marginBottom: '20px'
+          }}>
+            {error}
+          </div>
+        )}
+
+        {/* GitHub Login */}
+        <button
+          onClick={handleGitHubLogin}
+          disabled={authLoading}
+          style={{
+            width: '100%',
+            padding: '12px 24px',
+            background: '#24292e',
+            color: 'white',
+            border: 'none',
+            borderRadius: '8px',
+            fontSize: '16px',
+            fontWeight: '600',
+            cursor: authLoading ? 'not-allowed' : 'pointer',
+            transition: 'all 0.3s ease',
+            marginBottom: '15px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: '10px',
+            opacity: authLoading ? 0.7 : 1
+          }}
+          onMouseOver={(e) => !authLoading && (e.target.style.transform = 'translateY(-1px)')}
+          onMouseOut={(e) => !authLoading && (e.target.style.transform = 'translateY(0)')}
+        >
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+          </svg>
+          {authLoading ? 'Connecting...' : 'Continue with GitHub'}
+        </button>
+
+        <p style={{
+          marginTop: '20px',
+          fontSize: '14px',
+          color: '#9CA3AF'
+        }}>
+          By signing in, you agree to connect your GitHub account for repository analysis.
+        </p>
+      </div>
+    </div>
+  )
+}
+
+export default Login
