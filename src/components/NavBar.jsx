@@ -5,7 +5,7 @@ import PropTypes from 'prop-types'
 const NavBar = ({ githubProfile, signOut, isSigningOut }) => {
   return (
     <nav style={{
-      background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+      background: '#FFFFFF',
       padding: '15px 30px',
       display: 'flex',
       justifyContent: 'space-between',
@@ -13,48 +13,63 @@ const NavBar = ({ githubProfile, signOut, isSigningOut }) => {
       boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
       position: 'sticky',
       top: 0,
-      zIndex: 50
+      zIndex: 50,
+      borderBottom: '1px solid #E5E7EB'
     }}>
       <Link to="/dashboard" style={{
         textDecoration: 'none',
-        color: 'white',
+        color: '#2563EB',
         fontSize: '24px',
         fontWeight: 'bold',
-        background: 'rgba(255, 255, 255, 0.1)',
         padding: '8px 16px',
         borderRadius: '8px',
-        backdropFilter: 'blur(10px)'
-      }}>
+        transition: 'all 0.3s ease'
+      }}
+      onMouseOver={(e) => e.target.style.background = '#F9FAFB'}
+      onMouseOut={(e) => e.target.style.background = 'transparent'}
+      >
         DevInsights
       </Link>
       <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
         <Link
           to="/dashboard"
           style={{
-            color: 'white',
+            color: '#111827',
             textDecoration: 'none',
             padding: '8px 16px',
             borderRadius: '6px',
             transition: 'all 0.3s ease',
             fontWeight: '500'
           }}
-          onMouseOver={(e) => e.target.style.background = 'rgba(255, 255, 255, 0.1)'}
-          onMouseOut={(e) => e.target.style.background = 'transparent'}
+          onMouseOver={(e) => {
+            e.target.style.background = '#2563EB';
+            e.target.style.color = 'white';
+          }}
+          onMouseOut={(e) => {
+            e.target.style.background = 'transparent';
+            e.target.style.color = '#111827';
+          }}
         >
           Dashboard
         </Link>
         <Link
           to="/profile"
           style={{
-            color: 'white',
+            color: '#111827',
             textDecoration: 'none',
             padding: '8px 16px',
             borderRadius: '6px',
             transition: 'all 0.3s ease',
             fontWeight: '500'
           }}
-          onMouseOver={(e) => e.target.style.background = 'rgba(255, 255, 255, 0.1)'}
-          onMouseOut={(e) => e.target.style.background = 'transparent'}
+          onMouseOver={(e) => {
+            e.target.style.background = '#2563EB';
+            e.target.style.color = 'white';
+          }}
+          onMouseOut={(e) => {
+            e.target.style.background = 'transparent';
+            e.target.style.color = '#111827';
+          }}
         >
           Profile
         </Link>
@@ -64,12 +79,12 @@ const NavBar = ({ githubProfile, signOut, isSigningOut }) => {
             height: '40px',
             borderRadius: '50%',
             overflow: 'hidden',
-            border: '2px solid rgba(255, 255, 255, 0.3)',
+            border: '2px solid #E5E7EB',
             cursor: 'pointer',
             transition: 'all 0.3s ease'
           }}
-          onMouseOver={(e) => e.target.style.borderColor = 'rgba(255, 255, 255, 0.8)'}
-          onMouseOut={(e) => e.target.style.borderColor = 'rgba(255, 255, 255, 0.3)'}
+          onMouseOver={(e) => e.target.style.borderColor = '#2563EB'}
+          onMouseOut={(e) => e.target.style.borderColor = '#E5E7EB'}
           onClick={() => window.open(githubProfile.html_url, '_blank')}
           title={`${githubProfile.name || githubProfile.login} (@${githubProfile.login})`}
           >
@@ -92,25 +107,24 @@ const NavBar = ({ githubProfile, signOut, isSigningOut }) => {
           disabled={isSigningOut}
           style={{
             padding: '8px 16px',
-            background: isSigningOut ? 'rgba(255, 255, 255, 0.1)' : 'rgba(255, 255, 255, 0.2)',
+            background: isSigningOut ? '#9CA3AF' : '#2563EB',
             color: 'white',
-            border: '1px solid rgba(255, 255, 255, 0.3)',
+            border: 'none',
             borderRadius: '6px',
             cursor: isSigningOut ? 'not-allowed' : 'pointer',
             transition: 'all 0.3s ease',
             fontWeight: '500',
-            backdropFilter: 'blur(10px)',
             opacity: isSigningOut ? 0.6 : 1
           }}
           onMouseOver={(e) => {
             if (!isSigningOut) {
-              e.target.style.background = 'rgba(255, 255, 255, 0.3)';
+              e.target.style.background = '#1D4ED8';
               e.target.style.transform = 'translateY(-1px)';
             }
           }}
           onMouseOut={(e) => {
             if (!isSigningOut) {
-              e.target.style.background = 'rgba(255, 255, 255, 0.2)';
+              e.target.style.background = '#2563EB';
               e.target.style.transform = 'translateY(0)';
             }
           }}

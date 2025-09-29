@@ -45,13 +45,13 @@ const Dashboard = () => {
       justifyContent: 'center',
       alignItems: 'center',
       height: '100vh',
-      background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)'
+      background: '#F9FAFB'
     }}>
       <div style={{
         width: '40px',
         height: '40px',
-        border: '4px solid rgba(255, 255, 255, 0.3)',
-        borderTop: '4px solid white',
+        border: '4px solid #E5E7EB',
+        borderTop: '4px solid #2563EB',
         borderRadius: '50%',
         animation: 'spin 1s linear infinite'
       }}></div>
@@ -74,18 +74,19 @@ const Dashboard = () => {
   return (
     <div style={{
       minHeight: '100vh',
-      background: 'linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%)'
+      background: '#F9FAFB'
     }}>
       <NavBar signOut={signOut} githubProfile={githubProfile} isSigningOut={isSigningOut} />
       {needsEmailConfirmation && (
         <div style={{
-          background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-          color: 'white',
+          background: '#FFFFFF',
+          color: '#111827',
           padding: '20px',
           textAlign: 'center',
           margin: '0 30px 30px 30px',
           borderRadius: '16px',
-          boxShadow: '0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)'
+          boxShadow: '0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)',
+          border: '1px solid #E5E7EB'
         }}>
           <h2 style={{ margin: '0 0 10px 0', fontSize: '24px' }}>📧 Check Your Email!</h2>
           <p style={{ margin: '0', fontSize: '16px' }}>
@@ -100,22 +101,18 @@ const Dashboard = () => {
           padding: '30px',
           marginBottom: '30px',
           boxShadow: '0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)',
-          border: '1px solid rgba(255, 255, 255, 0.8)'
+          border: '1px solid #E5E7EB'
         }}>
           <h1 style={{
             fontSize: '36px',
             fontWeight: 'bold',
-            color: '#1F2937',
-            marginBottom: '10px',
-            background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-            WebkitBackgroundClip: 'text',
-            WebkitTextFillColor: 'transparent',
-            backgroundClip: 'text'
+            color: '#111827',
+            marginBottom: '10px'
           }}>
             Developer Analytics Dashboard
           </h1>
           <p style={{
-            color: '#6B7280',
+            color: '#4B5563',
             fontSize: '18px',
             marginBottom: '0'
           }}>
@@ -133,12 +130,12 @@ const Dashboard = () => {
               padding: '24px',
               marginBottom: '30px',
               boxShadow: '0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)',
-              border: '1px solid rgba(255, 255, 255, 0.8)'
+              border: '1px solid #E5E7EB'
             }}>
               <h2 style={{
                 fontSize: '24px',
                 fontWeight: 'bold',
-                color: '#1F2937',
+                color: '#111827',
                 marginBottom: '8px',
                 display: 'flex',
                 alignItems: 'center',
@@ -147,7 +144,7 @@ const Dashboard = () => {
                 <span style={{
                   width: '8px',
                   height: '8px',
-                  background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                  background: '#2563EB',
                   borderRadius: '50%'
                 }}></span>
                 {selectedRepo.owner}/{selectedRepo.repo}
@@ -157,14 +154,14 @@ const Dashboard = () => {
                   display: 'flex',
                   alignItems: 'center',
                   gap: '10px',
-                  color: '#6B7280',
+                  color: '#4B5563',
                   fontSize: '16px'
                 }}>
                   <div style={{
                     width: '20px',
                     height: '20px',
                     border: '2px solid #E5E7EB',
-                    borderTop: '2px solid #667eea',
+                    borderTop: '2px solid #2563EB',
                     borderRadius: '50%',
                     animation: 'spin 1s linear infinite'
                   }}></div>
@@ -197,7 +194,7 @@ const Dashboard = () => {
                   borderRadius: '16px',
                   padding: '24px',
                   boxShadow: '0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)',
-                  border: '1px solid rgba(255, 255, 255, 0.8)'
+                  border: '1px solid #E5E7EB'
                 }}>
                   <CommitFrequencyChart data={insights.commitFrequency} />
                 </div>
@@ -206,7 +203,7 @@ const Dashboard = () => {
                   borderRadius: '16px',
                   padding: '24px',
                   boxShadow: '0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)',
-                  border: '1px solid rgba(255, 255, 255, 0.8)'
+                  border: '1px solid #E5E7EB'
                 }}>
                   <PRCycleTimeChart data={insights.prCycleTimes} />
                 </div>
@@ -215,7 +212,7 @@ const Dashboard = () => {
                   borderRadius: '16px',
                   padding: '24px',
                   boxShadow: '0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)',
-                  border: '1px solid rgba(255, 255, 255, 0.8)'
+                  border: '1px solid #E5E7EB'
                 }}>
                   <LanguageTrendChart data={insights.languageTrends} />
                 </div>
@@ -228,7 +225,7 @@ const Dashboard = () => {
                 borderRadius: '16px',
                 padding: '24px',
                 boxShadow: '0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)',
-                border: '1px solid rgba(255, 255, 255, 0.8)'
+                border: '1px solid #E5E7EB'
               }}>
                 <AchievementsList achievements={insights.achievements || []} />
               </div>
