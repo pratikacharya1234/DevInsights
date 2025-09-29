@@ -140,6 +140,7 @@ export const useAuth = () => {
 
     try {
       // Clear local state immediately to provide instant UI feedback
+      console.log('Clearing local state...')
       setUser(null)
       setGithubProfile(null)
       setLoading(false) // Ensure loading is false so UI doesn't show loading state
@@ -147,6 +148,7 @@ export const useAuth = () => {
       // Sign out from Supabase
       console.log('Calling supabase.auth.signOut()...')
       const { error } = await supabase.auth.signOut()
+      console.log('Supabase sign out result:', error ? `Error: ${error.message}` : 'Success')
 
       if (error) {
         console.error('Supabase sign out error:', error)

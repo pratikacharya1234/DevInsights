@@ -16,3 +16,8 @@ const mockSupabase = {
 }
 
 export const supabase = supabaseUrl && supabaseAnonKey ? createClient(supabaseUrl, supabaseAnonKey) : mockSupabase
+
+// Log if using mock client (for debugging deployment issues)
+if (!supabaseUrl || !supabaseAnonKey) {
+  console.warn('Using mock Supabase client. Ensure VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY are set in production.')
+}
