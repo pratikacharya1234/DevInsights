@@ -1,23 +1,19 @@
 import { useState, useEffect } from 'react'
-import { useNavigate, useSearchParams } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { useAuth } from '../hooks/useAuth.js'
 
 const Login = () => {
   const { user, loading, signInWithGitHub } = useAuth()
   const [authLoading, setAuthLoading] = useState(false)
   const [error, setError] = useState(null)
-  const [searchParams] = useSearchParams()
   const navigate = useNavigate()
 
-  // Check if user was just signed out
-  const wasSignedOut = searchParams.get('signed_out') === 'true'
-
   useEffect(() => {
-    // If user is already logged in and not just signed out, redirect to dashboard
-    if (user && !loading && !wasSignedOut) {
+    // If user is already logged in, redirect to dashboard
+    if (user && !loading) {
       navigate('/dashboard')
     }
-  }, [user, loading, navigate, wasSignedOut])
+  }, [user, loading, navigate])
 
   const handleGitHubLogin = async () => {
     try {
@@ -33,7 +29,7 @@ const Login = () => {
   }
 
   // Don't show loading if user was just signed out
-  if (loading && !wasSignedOut) return (
+  if (loading) return (
     <div style={{
       display: 'flex',
       justifyContent: 'center',
@@ -109,20 +105,6 @@ const Login = () => {
         }}>
           Sign in with your GitHub account to start tracking your development insights
         </p>
-
-        {wasSignedOut && (
-          <div style={{
-            background: '#D1FAE5',
-            border: '1px solid #A7F3D0',
-            borderRadius: '8px',
-            padding: '12px',
-            color: '#065F46',
-            fontSize: '14px',
-            marginBottom: '20px'
-          }}>
-            You have been successfully signed out.
-          </div>
-        )}
 
         {error && (
           <div style={{

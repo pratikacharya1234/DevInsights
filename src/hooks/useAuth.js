@@ -160,7 +160,7 @@ export const useAuth = () => {
       console.log('Redirecting to login page...')
 
       // Redirect immediately to login page
-      window.location.href = '/login?signed_out=true'
+      window.location.href = '/login'
 
     } catch (err) {
       console.error('Sign out process failed:', err)
@@ -172,7 +172,7 @@ export const useAuth = () => {
       setIsSigningOut(false)
 
       // Still redirect to login on error
-      window.location.href = '/login?signed_out=true'
+      window.location.href = '/login'
     }
 
     // Note: We don't set isSigningOut to false here because we're redirecting
