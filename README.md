@@ -91,7 +91,7 @@ src/
 
 ## Database Schema
 
-The application uses the following database tables:
+The application uses the following database tables:-
 
 ### Users Table
 - User authentication and profile data
